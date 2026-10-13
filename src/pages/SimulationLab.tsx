@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useSimulation } from '../hooks/useSimulation';
 import { ProtocolBanner } from '../components/simulation/ProtocolBanner';
@@ -5,14 +6,15 @@ import { SimulationControls } from '../components/simulation/SimulationControls'
 import { MetricCards } from '../components/metrics/MetricCards';
 import { NetworkCanvas } from '../components/network/NetworkCanvas';
 import { LiveCharts } from '../components/charts/LiveCharts';
-import { EventLog } from '../components/logs/EventLog';
 import { ProtocolType } from '../types/simulation';
 
 interface SimulationLabProps {
   simulation: ReturnType<typeof useSimulation>;
 }
 
-export const SimulationLab: React.FC<SimulationLabProps> = ({ simulation }) => {
+export const SimulationLab: React.FC<SimulationLabProps> = ({
+  simulation,
+}) => {
   const {
     snapshot,
     isPlaying,
@@ -24,20 +26,29 @@ export const SimulationLab: React.FC<SimulationLabProps> = ({ simulation }) => {
     reset,
     step,
     updateConfig,
-    clearLog,
   } = simulation;
 
   return (
-    <div className="space-y-4 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-      {/* Protocol Banner & Selector */}
+    <div className="mx-auto max-w-7xl space-y-4 px-4 py-4 sm:px-6 lg:px-8">
+      {/* Protocol selection */}
       <ProtocolBanner
         currentProtocol={snapshot.config.protocol}
-        onSelectProtocol={(proto: ProtocolType) => updateConfig({ protocol: proto })}
+        onSelectProtocol={(proto: ProtocolType) =>
+          updateConfig({ protocol: proto })
+        }
         persistence={snapshot.config.csmaPersistence}
-        onChangePersistence={(p: '1-persistent' | 'non-persistent') => updateConfig({ csmaPersistence: p })}
+        onChangePersistence={(p: '1-persistent' | 'non-persistent') =>
+          updateConfig({ csmaPersistence: p })
+        }
       />
 
-      {/* Simulation Playback & Parameter Controls */}
+      {/* Simulation metrics */}
+      <MetricCards metrics={snapshot.metrics} />
+
+      {/* Network visualization */}
+      <NetworkCanvas snapshot={snapshot} />
+
+      {/* Playback controls directly below the network */}
       <SimulationControls
         isPlaying={isPlaying}
         speed={speed}
@@ -51,17 +62,8 @@ export const SimulationLab: React.FC<SimulationLabProps> = ({ simulation }) => {
         onUpdateConfig={updateConfig}
       />
 
-      {/* Live Metric Cards */}
-      <MetricCards metrics={snapshot.metrics} />
-
-      {/* Shared Medium Bus Topology Network Canvas */}
-      <NetworkCanvas snapshot={snapshot} />
-
-      {/* Performance Chart & Live Event Log */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <LiveCharts timeSeries={snapshot.metrics.timeSeries} />
-        <EventLog events={snapshot.recentEvents} onClear={clearLog} />
-      </div>
+      {/* Live performance chart */}
+      <LiveCharts timeSeries={snapshot.metrics.timeSeries} />
     </div>
   );
 };

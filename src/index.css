@@ -4,57 +4,64 @@
 
 @layer base {
   body {
-    background-color: #0b0f19;
-    color: #f1f5f9;
+    background-color: #f8fafc;
+    color: #0f172a;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     overflow-x: hidden;
   }
 
-  /* Custom sleek scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f8fafc;
+  }
+
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
   }
+
   ::-webkit-scrollbar-track {
-    background: #0f172a;
+    background: #f8fafc;
   }
+
   ::-webkit-scrollbar-thumb {
-    background: #334155;
-    border-radius: 3px;
+    background: #cbd5e1;
+    border-radius: 4px;
   }
+
   ::-webkit-scrollbar-thumb:hover {
-    background: #475569;
+    background: #94a3b8;
   }
 }
 
-/* Pulsing collision wave animation */
 @keyframes collision-pulse {
   0% {
     r: 12;
     opacity: 1;
-    stroke-width: 4;
+    stroke-width: 3;
   }
+
   50% {
-    r: 28;
-    opacity: 0.6;
+    r: 26;
+    opacity: 0.5;
     stroke-width: 2;
   }
+
   100% {
-    r: 44;
+    r: 40;
     opacity: 0;
     stroke-width: 1;
   }
 }
 
 .animate-collision-ring {
-  animation: collision-pulse 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+  animation: collision-pulse 1.2s ease-out infinite;
 }
 
-/* Glowing channel active */
 .channel-active-glow {
-  filter: drop-shadow(0 0 6px rgba(6, 182, 212, 0.6));
+  filter: drop-shadow(0 0 4px rgba(37, 99, 235, 0.25));
 }
 
 .channel-collision-glow {
-  filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.8));
+  filter: drop-shadow(0 0 5px rgba(37, 99, 235, 0.35));
 }

@@ -7,7 +7,7 @@ export const App: React.FC = () => {
   const simulation = useSimulation();
 
   return (
-    <div className="min-h-screen bg-charcoal-950 text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
       <Navbar
         activeProtocol={simulation.snapshot.config.protocol}
         isRunning={simulation.snapshot.isRunning}
@@ -15,14 +15,14 @@ export const App: React.FC = () => {
         currentTime={simulation.snapshot.time}
       />
 
-      <main className="flex-1 pb-10">
+      <main className="flex-1 pb-8">
         <SimulationLab simulation={simulation} />
       </main>
 
-      <footer className="bg-charcoal-900 border-t border-charcoal-800/80 py-3 text-center text-xs text-slate-500 font-mono">
+      <footer className="border-t border-slate-200 bg-white py-4 text-center text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <span>MAC-LAB</span>
-          <span>Pure ALOHA • Slotted ALOHA • CSMA</span>
+          <span className="font-semibold tracking-wide">MAC LAB</span>
+          <span>Pure ALOHA · Slotted ALOHA · CSMA · CSMA/CD</span>
         </div>
       </footer>
     </div>

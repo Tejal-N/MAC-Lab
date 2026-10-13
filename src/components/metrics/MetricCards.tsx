@@ -10,38 +10,38 @@ export const MetricCards: React.FC<MetricCardsProps> = ({ metrics }) => {
     {
       name: 'Packets Delivered',
       value: metrics.successfulDeliveries,
-      color: 'text-emerald-400',
     },
     {
       name: 'Collisions',
       value: metrics.collidedAttempts,
-      color: metrics.collidedAttempts > 0 ? 'text-rose-400' : 'text-slate-300',
     },
     {
       name: 'Throughput',
       value: metrics.throughput.toFixed(3),
-      color: 'text-cyan-400',
     },
     {
       name: 'Average Delay',
-      value: metrics.successfulDeliveries > 0 ? `${metrics.averagePacketDelay.toFixed(1)} u` : '—',
-      color: metrics.successfulDeliveries > 0 ? 'text-indigo-400' : 'text-slate-500',
+      value:
+        metrics.successfulDeliveries > 0
+          ? `${metrics.averagePacketDelay.toFixed(1)} u`
+          : '—',
     },
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+    <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
       {cards.map((card) => (
         <div
           key={card.name}
-          className="bg-charcoal-900 border border-charcoal-700/80 rounded-xl p-3.5 flex flex-col justify-between"
+          className="flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-4 shadow-sm"
         >
-          <div className="text-xs font-medium text-slate-400 tracking-wide">
+          <span className="text-sm font-medium text-slate-500">
             {card.name}
-          </div>
-          <div className={`text-xl sm:text-2xl font-bold font-mono mt-1 ${card.color} tracking-tight`}>
+          </span>
+
+          <span className="mt-2 font-mono text-2xl font-semibold tracking-tight text-blue-700">
             {card.value}
-          </div>
+          </span>
         </div>
       ))}
     </div>
