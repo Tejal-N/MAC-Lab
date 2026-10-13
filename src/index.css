@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #0b0f19;
+    color: #f1f5f9;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Custom sleek scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0f172a;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+  }
+}
+
+/* Pulsing collision wave animation */
+@keyframes collision-pulse {
+  0% {
+    r: 12;
+    opacity: 1;
+    stroke-width: 4;
+  }
+  50% {
+    r: 28;
+    opacity: 0.6;
+    stroke-width: 2;
+  }
+  100% {
+    r: 44;
+    opacity: 0;
+    stroke-width: 1;
+  }
+}
+
+.animate-collision-ring {
+  animation: collision-pulse 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+}
+
+/* Glowing channel active */
+.channel-active-glow {
+  filter: drop-shadow(0 0 6px rgba(6, 182, 212, 0.6));
+}
+
+.channel-collision-glow {
+  filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.8));
+}
