@@ -1,8 +1,8 @@
-# MAC Arena — Interactive MAC Protocol Simulator
+# MAC Lab — Interactive MAC Protocol Simulator
 
 An interactive **Data Communication and Networking (DCN)** mini-project that simulates how multiple devices compete for access to a shared communication channel using Media Access Control (MAC) protocols.
 
-MAC Arena provides a visual environment for exploring channel contention, packet transmission, collisions, retransmissions, and protocol performance through a real-time simulation.
+MAC Lab provides a visual environment for exploring channel contention, packet transmission, collisions, retransmissions, and protocol performance through a real-time simulation.
 
 ---
 
@@ -14,7 +14,7 @@ Multiple devices sharing a communication channel must coordinate their transmiss
 
 ### Solution
 
-MAC Arena models a shared communication channel and allows users to interact with different MAC protocols. Users can adjust simulation parameters, observe device activity, and examine performance metrics to understand how each protocol behaves under different traffic conditions.
+MAC Lab models a shared communication channel and allows users to interact with different MAC protocols. Users can adjust simulation parameters, observe device activity, and examine performance metrics to understand how each protocol behaves under different traffic conditions.
 
 ### Key Objectives
 
