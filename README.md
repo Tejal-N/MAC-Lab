@@ -1,8 +1,8 @@
-# MAC Lab — Interactive MAC Protocol Simulator
+# Interactive Simulator for Media Access Control Protocols and Network Performance Analysis
 
 An interactive **Data Communication and Networking (DCN)** mini-project that simulates how multiple devices compete for access to a shared communication channel using Media Access Control (MAC) protocols.
 
-MAC Lab provides a visual environment for exploring channel contention, packet transmission, collisions, retransmissions, and protocol performance through a real-time simulation.
+MAC Lab provides a visual environment for exploring channel contention, packet transmission, collisions, retransmissions, protocol performance, and comparative analysis through a real-time simulation.
 
 ---
 
@@ -10,11 +10,13 @@ MAC Lab provides a visual environment for exploring channel contention, packet t
 
 ### Problem Context
 
-Multiple devices sharing a communication channel must coordinate their transmissions to reduce collisions and use the available bandwidth efficiently. Different MAC protocols employ different strategies to manage channel access, resulting in different throughput, delay, and collision behavior.
+Multiple devices sharing a communication channel must coordinate their transmissions to reduce collisions and use available bandwidth efficiently. Different MAC protocols employ different strategies to manage channel access, resulting in varying throughput, delay, and collision behavior.
 
 ### Solution
 
 MAC Lab models a shared communication channel and allows users to interact with different MAC protocols. Users can adjust simulation parameters, observe device activity, and examine performance metrics to understand how each protocol behaves under different traffic conditions.
+
+The project also includes a **Protocol Analysis** feature that runs independent simulations of all four supported protocols under the same network configuration, enabling direct performance comparison.
 
 ### Key Objectives
 
@@ -23,6 +25,7 @@ MAC Lab models a shared communication channel and allows users to interact with 
 - Explore retransmission and backoff mechanisms.
 - Understand channel sensing and collision detection.
 - Analyze packet delivery, throughput, and average delay.
+- Compare the performance of multiple MAC protocols under identical simulation conditions.
 
 ---
 
@@ -33,7 +36,7 @@ MAC Lab models a shared communication channel and allows users to interact with 
 | **Pure ALOHA** | Devices transmit whenever a packet is ready. | Collided packets are retransmitted after a random backoff. |
 | **Slotted ALOHA** | Devices transmit only at predefined slot boundaries. | Collided packets retry in later slots after backoff. |
 | **CSMA** | Devices sense the channel before transmitting. | Collisions may still occur because of propagation delay. |
-| **CSMA/CD** | Devices sense the channel and monitor transmissions for collisions. | Collided transmissions are aborted, followed by a backoff before retrying. |
+| **CSMA/CD** | Devices sense the channel and monitor transmissions for collisions. | Collided transmissions are aborted, followed by backoff before retrying. |
 
 ### Pure ALOHA
 
@@ -61,56 +64,145 @@ Devices sense the channel before transmitting and monitor the transmission for c
 - **TypeScript** — Type-safe application and simulation logic.
 - **Vite** — Development server and build tooling.
 - **Tailwind CSS** — Interface styling.
+- **Recharts** — Performance charts and data visualization.
+- **Lucide** — Interface icons.
 
 ### Simulation Engine
 
-The simulation engine models device activity, channel access, packet transmission, collision events, retransmissions, and performance metrics.
+The simulation engine models:
 
-The application runs in the browser and does not require a separate backend server.
+- Device activity and packet generation.
+- Channel access decisions.
+- Packet transmission.
+- Collision detection and handling.
+- Retransmissions and backoff.
+- Performance metric calculations.
+- Simulation time progression.
+
+The application runs entirely in the browser and does not require a separate backend server.
 
 ---
 
-## 4. Simulation Controls
+## 4. Simulation Lab
 
-The Simulation Lab provides controls for interacting with the simulation.
+The Simulation Lab provides an interactive environment for exploring the behavior of individual MAC protocols.
+
+### Simulation Controls
 
 | Control | Purpose |
 |---|---|
 | **Protocol Selector** | Select the MAC protocol to simulate. |
-| **Start** | Begin a simulation run. |
+| **Start** | Begin the simulation. |
 | **Pause** | Temporarily stop simulation advancement. |
 | **Resume** | Continue a paused simulation. |
 | **Reset** | Restore the simulation to its initial state. |
-| **Step Forward** | Advance the simulation by one supported step. |
+| **Step Forward** | Advance the simulation by one time unit. |
 | **Device Count** | Configure the number of participating devices. |
-| **Traffic Intensity** | Adjust how frequently devices generate packets. |
+| **Traffic Intensity** | Adjust the packet arrival rate. |
 | **Simulation Speed** | Control the playback speed of the visualization. |
+| **CSMA Persistence** | Select the available CSMA persistence strategy where applicable. |
 
 Available controls depend on the implementation in the current version of the application.
 
+### Live Network Visualization
+
+The network canvas visually represents devices competing for access to a shared communication channel.
+
+It allows users to observe:
+
+- Device states.
+- Packet transmission activity.
+- Channel occupancy.
+- Collision behavior.
+- Successful packet delivery.
+- Backoff and waiting states.
+
+### Live Throughput Telemetry
+
+The simulation includes a live throughput chart that tracks throughput progression over simulation time.
+
+The chart helps users observe how channel performance changes as packets are generated, transmitted, collided, and successfully delivered.
+
 ---
 
-## 5. Performance Metrics
+## 5. Protocol Analysis
 
-MAC Arena displays four primary performance metrics.
+The Protocol Analysis feature allows users to evaluate and compare all four supported MAC protocols without manually switching between individual simulations.
+
+### How It Works
+
+- Creates independent simulations for all four protocols.
+- Uses the same network configuration for each simulation.
+- Uses the same packet-arrival random seed for comparable packet-generation patterns.
+- Runs each simulation for the configured simulation duration.
+- Collects performance metrics from each simulation.
+- Displays the results in a comparison chart and table.
+
+### Protocols Compared
+
+- Pure ALOHA
+- Slotted ALOHA
+- CSMA
+- CSMA/CD
+
+### Comparison Metrics
+
+| Metric | Description |
+|---|---|
+| **Packets Delivered** | Number of packets successfully delivered during the simulation. |
+| **Throughput** | Normalized successful channel time relative to simulated time. |
+| **Collision Rate** | Ratio of recorded collided attempts to total transmission attempts. |
+| **Average Delay** | Average delivery delay for successfully delivered packets. |
+
+### Throughput Comparison Chart
+
+A bar chart compares the throughput achieved by each protocol under the same network configuration.
+
+### Performance Comparison Table
+
+The comparison table displays:
+
+- Protocol name.
+- Successful packet deliveries.
+- Throughput.
+- Collision rate.
+- Average packet delay.
+
+The best-performing result for each comparison metric is highlighted to make differences between protocols easier to identify.
+
+### Running a Comparison
+
+1. Open the Simulation Lab.
+2. Configure the network parameters.
+3. Scroll to the Protocol Analysis section.
+4. Click **Run Comparison**.
+5. Observe the throughput chart and performance table.
+
+The comparison runs independently and does not replace the current live simulation.
+
+---
+
+## 6. Performance Metrics
+
+MAC Lab displays the following primary performance metrics during an individual simulation.
 
 | Metric | Description |
 |---|---|
 | **Packets Delivered** | Total number of packets successfully delivered to the receiver. |
-| **Collisions** | Number of collision events recorded by the simulation. |
-| **Throughput** | Rate of successful packet delivery over simulated time. |
-| **Average Delay** | Average time taken by successfully delivered packets, according to the simulation's timing model. |
+| **Collisions** | Number of recorded collision attempts. |
+| **Throughput** | Normalized successful channel time relative to simulated time. |
+| **Average Delay** | Average time taken by successfully delivered packets according to the simulation's timing model. |
 
 ### Understanding the Metrics
 
 - **Packets Delivered:** Indicates how many packets completed successful transmission.
 - **Collisions:** Helps reveal how channel contention changes with traffic intensity and protocol selection.
 - **Throughput:** Shows how effectively the shared channel delivers packets.
-- **Average Delay:** Indicates how long successful packets take to complete transmission, including the delays defined by the simulation model.
+- **Average Delay:** Indicates how long successfully delivered packets take to complete transmission, including the delays defined by the simulation model.
 
 ---
 
-## 6. Network Visualization & Event Log
+## 7. Network Visualization & Event Log
 
 ### Network Visualization
 
@@ -131,11 +223,11 @@ The event log records simulation events such as:
 - Retransmission and backoff.
 - Successful packet delivery.
 
-The event log is intended to help users understand why a transmission succeeds, fails, or must be retried.
+The event log helps users understand why a transmission succeeds, fails, or must be retried.
 
 ---
 
-## 7. Project Structure
+## 8. Project Structure
 
 The project separates reusable interface components from the simulation engine and individual protocol implementations.
 
@@ -143,6 +235,8 @@ The project separates reusable interface components from the simulation engine a
 MAC-Lab/
 ├── src/
 │   ├── components/
+│   │   ├── analysis/
+│   │   │   └── ProtocolAnalysis.tsx
 │   │   ├── charts/
 │   │   │   └── LiveCharts.tsx
 │   │   ├── layout/
@@ -191,6 +285,7 @@ MAC-Lab/
 
 | Directory or File | Responsibility |
 |---|---|
+| `components/analysis/` | Protocol comparison chart and performance analysis. |
 | `components/charts/` | Simulation charts and data visualization. |
 | `components/layout/` | Application navigation and layout. |
 | `components/logs/` | Simulation event log. |
@@ -208,7 +303,7 @@ MAC-Lab/
 
 ---
 
-## 8. Getting Started
+## 9. Getting Started
 
 ### Prerequisites
 
@@ -240,5 +335,7 @@ npm install
 ```bash
 npm run dev
 ```
+
+Open the local URL displayed in the terminal to access MAC Lab.
 
 ---
