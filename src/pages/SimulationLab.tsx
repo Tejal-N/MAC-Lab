@@ -6,6 +6,7 @@ import { SimulationControls } from '../components/simulation/SimulationControls'
 import { MetricCards } from '../components/metrics/MetricCards';
 import { NetworkCanvas } from '../components/network/NetworkCanvas';
 import { LiveCharts } from '../components/charts/LiveCharts';
+import { ProtocolAnalysis } from '../components/analysis/ProtocolAnalysis';
 import { ProtocolType } from '../types/simulation';
 
 interface SimulationLabProps {
@@ -30,6 +31,7 @@ export const SimulationLab: React.FC<SimulationLabProps> = ({
 
   return (
     <div className="mx-auto max-w-7xl space-y-4 px-4 py-4 sm:px-6 lg:px-8">
+
       {/* Protocol selection */}
       <ProtocolBanner
         currentProtocol={snapshot.config.protocol}
@@ -48,7 +50,7 @@ export const SimulationLab: React.FC<SimulationLabProps> = ({
       {/* Network visualization */}
       <NetworkCanvas snapshot={snapshot} />
 
-      {/* Playback controls directly below the network */}
+      {/* Playback controls */}
       <SimulationControls
         isPlaying={isPlaying}
         speed={speed}
@@ -64,6 +66,10 @@ export const SimulationLab: React.FC<SimulationLabProps> = ({
 
       {/* Live performance chart */}
       <LiveCharts timeSeries={snapshot.metrics.timeSeries} />
+
+      {/* Comparison of all four protocols */}
+      <ProtocolAnalysis config={snapshot.config} />
+
     </div>
   );
 };

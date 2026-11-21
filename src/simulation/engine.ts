@@ -37,6 +37,7 @@ export class SimulationEngine {
   private channel: ChannelTracker;
   private metricsTracker: MetricsTracker;
   private random: SeededRandom;
+  private arrivalRandom: SeededRandom;
   private eventLog: SimulationEvent[] = [];
   private isRunning: boolean = false;
   private isPaused: boolean = false;
@@ -50,6 +51,7 @@ export class SimulationEngine {
   constructor(initialConfig: Partial<SimulationConfig> = {}) {
     this.config = { ...DEFAULT_CONFIG, ...initialConfig };
     this.random = new SeededRandom(this.config.randomSeed);
+    this.arrivalRandom = new SeededRandom(this.config.randomSeed);
     this.channel = new ChannelTracker();
     this.metricsTracker = new MetricsTracker(this.config.packetDuration);
 
@@ -69,6 +71,7 @@ export class SimulationEngine {
     this.isRunning = false;
     this.isPaused = false;
     this.random.reset(this.config.randomSeed);
+    this.arrivalRandom.reset(this.config.randomSeed);
     resetPacketCounter();
     this.channel.reset();
     this.metricsTracker.reset(this.config.packetDuration);
@@ -148,7 +151,7 @@ export class SimulationEngine {
       // Don't generate if queue is very large (limit memory buffer to 5 packets)
       if (device.packetQueue.length >= 5) continue;
 
-      if (this.random.nextBool(this.config.packetArrivalRate)) {
+      if (this.arrivalRandom.nextBool(this.config.packetArrivalRate)) {
         const packet = createPacket(device.id, this.currentTime, this.config.packetDuration);
         device.packetQueue.push(packet);
         this.metricsTracker.recordPacketGeneration();
